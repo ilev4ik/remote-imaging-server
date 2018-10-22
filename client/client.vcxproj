@@ -93,6 +93,11 @@
   <ItemGroup>
     <ClInclude Include="client.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\network_lib\network_lib.vcxproj">
+      <Project>{ca17203c-7e5b-4dc6-bfe5-f66f4519ec4d}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
