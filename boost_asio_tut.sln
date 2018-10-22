@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "client", "client\client.vcxproj", "{E53A484D-7FDD-483F-A3A4-2CBAA3F083E4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "server", "server\server.vcxproj", "{A344D21F-BF97-4D8A-BB68-ED774431181E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "network_lib", "network_lib\network_lib.vcxproj", "{CA17203C-7E5B-4DC6-BFE5-F66F4519EC4D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E53A484D-7FDD-483F-A3A4-2CBAA3F083E4}.Debug|x64.ActiveCfg = Debug|x64
+		{E53A484D-7FDD-483F-A3A4-2CBAA3F083E4}.Debug|x64.Build.0 = Debug|x64
+		{E53A484D-7FDD-483F-A3A4-2CBAA3F083E4}.Release|x64.ActiveCfg = Release|x64
+		{E53A484D-7FDD-483F-A3A4-2CBAA3F083E4}.Release|x64.Build.0 = Release|x64
+		{A344D21F-BF97-4D8A-BB68-ED774431181E}.Debug|x64.ActiveCfg = Debug|x64
+		{A344D21F-BF97-4D8A-BB68-ED774431181E}.Debug|x64.Build.0 = Debug|x64
+		{A344D21F-BF97-4D8A-BB68-ED774431181E}.Release|x64.ActiveCfg = Release|x64
+		{A344D21F-BF97-4D8A-BB68-ED774431181E}.Release|x64.Build.0 = Release|x64
+		{CA17203C-7E5B-4DC6-BFE5-F66F4519EC4D}.Debug|x64.ActiveCfg = Debug|x64
+		{CA17203C-7E5B-4DC6-BFE5-F66F4519EC4D}.Debug|x64.Build.0 = Debug|x64
+		{CA17203C-7E5B-4DC6-BFE5-F66F4519EC4D}.Release|x64.ActiveCfg = Release|x64
+		{CA17203C-7E5B-4DC6-BFE5-F66F4519EC4D}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C2E4FD30-D0ED-4F93-A955-E5C72C19AE08}
+	EndGlobalSection
+EndGlobal
