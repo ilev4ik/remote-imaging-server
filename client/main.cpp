@@ -113,16 +113,19 @@ namespace {
 		return {success, imgs_path, ipv4_addr, port};
 	}
 
-	std::vector<char> read_file_bytes(const char* filename)
+	std::vector<char> read_file_bytes(const wchar_t* file_abs_path)
 	{
 		using namespace std;
-		ifstream ifs(filename, ios::binary | ios::ate);
-		ifstream::pos_type end_pos = ifs.tellg();
+		ifstream ifs(file_abs_path, ios::binary);
 
-		std::vector<char> result(end_pos);
+		ifs.seekg(0, ifs.end);
+		std::streamoff length = ifs.tellg();
+		ifs.seekg(0, ifs.beg);
+
+		std::vector<char> result(length);
 
 		ifs.seekg(0, ios::beg);
-		ifs.read(&result[0], end_pos);
+		ifs.read(&result[0], length);
 
 		return result;
 	}
@@ -142,7 +145,10 @@ int main(int argc, char* argv[])
 		for (fs::directory_entry entry : dir_range) {
 			fs::path p = entry.path();
 			if (fs::is_regular_file(p)) {
-				std::cout << p.filename() << std::endl;
+				auto normalized_abs = fs::absolute(p.normalize());
+				std::cout << normalized_abs << std::endl;
+				
+				::read_file_bytes(normalized_abs.c_str());
 			}
 		}
 
