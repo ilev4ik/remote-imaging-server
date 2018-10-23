@@ -169,8 +169,12 @@ void connection::connect(const std::string& host, uint16_t port)
 	system::error_code ec;
 	asio::ip::tcp::resolver resolver(m_hive->get_service());
 	asio::ip::tcp::resolver::query query(host, lexical_cast<std::string>(port));
-	asio::ip::tcp::resolver::iterator iterator = resolver.resolve(query);
-	m_socket.async_connect(*iterator, 
+	asio::ip::tcp::resolver::iterator iterator = resolver.resolve(query, ec);
+	if (!ec) {
+		throw std::invalid_argument("address not resolved");
+	}
+
+	m_socket.async_connect(*iterator,
 		m_io_strand.wrap(boost::bind(&connection::handle_connect, shared_from_this(), error))
 	);
 	start_timer();

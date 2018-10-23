@@ -65,6 +65,8 @@ public:
 	// Posts an asynchronous disconnect event for the object to process.
 	void disconnect();
 
+	virtual ~connection();
+
 private:
 	boost::shared_ptr<hive> m_hive;
 	boost::asio::ip::tcp::socket m_socket;
@@ -80,7 +82,6 @@ private:
 
 protected:
 	connection(boost::shared_ptr<hive> hive);
-	virtual ~connection();
 
 private:
 	connection(const connection& rhs);

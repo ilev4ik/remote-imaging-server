@@ -15,7 +15,6 @@ class acceptor : public boost::enable_shared_from_this<acceptor>
 {
 	friend class hive;
 
-
 private:
 	boost::shared_ptr<hive> m_hive;
 	boost::asio::ip::tcp::acceptor m_acceptor;
