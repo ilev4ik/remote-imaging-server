@@ -10,6 +10,7 @@
 #include <boost\program_options.hpp>
 #include <boost\filesystem.hpp>
 #include <boost\asio\ip\address.hpp>
+#include <boost\range.hpp>
 
 // windows
 #include <conio.h>
@@ -112,8 +113,20 @@ namespace {
 		return {success, imgs_path, ipv4_addr, port};
 	}
 
-}
+	std::vector<char> read_file_bytes(const char* filename)
+	{
+		using namespace std;
+		ifstream ifs(filename, ios::binary | ios::ate);
+		ifstream::pos_type end_pos = ifs.tellg();
 
+		std::vector<char> result(end_pos);
+
+		ifs.seekg(0, ios::beg);
+		ifs.read(&result[0], end_pos);
+
+		return result;
+	}
+}
 
 int main(int argc, char* argv[])
 { 
@@ -122,10 +135,18 @@ int main(int argc, char* argv[])
 	std::string ipv4_addr;
 	short port;
 
-	std::tie(success, std::ignore, ipv4_addr, port) = ::parse_program_args(argc, argv);
+	std::tie(success, imgs_path, ipv4_addr, port) = ::parse_program_args(argc, argv);
 
 	if (success) {
-		connect_to_server(ipv4_addr, port);
+		const auto& dir_range = boost::make_iterator_range(fs::directory_iterator(imgs_path), {});
+		for (fs::directory_entry entry : dir_range) {
+			fs::path p = entry.path();
+			if (fs::is_regular_file(p)) {
+				std::cout << p.filename() << std::endl;
+			}
+		}
+
+		::connect_to_server(ipv4_addr, port);
 	}
 	
 	return 0;
