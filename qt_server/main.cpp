@@ -6,7 +6,9 @@
 
 #include <QtWidgets/QApplication>
 
-int main(int argc, char *argv[])
+#include "imaging.h"
+
+int main(int argc, char* argv[])
 {
 	QApplication a(argc, argv);
 	ServerInfoDialog w;
@@ -28,6 +30,8 @@ int main(int argc, char *argv[])
 	hive_ptr->stop();
 
 	std::cin.get();
+
+	::test();
 
 	return a.exec();
 }
