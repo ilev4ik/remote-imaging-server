@@ -19,14 +19,15 @@ namespace fs = boost::filesystem;
 
 namespace {
 
-	std::tuple<bool, fs::path, std::string, short> parse_program_args(int argc, char* argv[])
+	std::tuple<bool, fs::path, fs::path, std::string, short> parse_program_args(int argc, char* argv[])
 	{
 		po::options_description desc("Allowed options");
 		desc.add_options()
 			("help", "produce help message")
-			("imgs-path, I", po::value<std::string>(), "images to process include path")
-			("address, a", po::value<std::string>(), "IPv4 address of a server")
-			("port, p", po::value<short>(), "Port of a server machine");
+			("imgs-path", po::value<std::string>(), "images to process include path")
+			("dest-imgs-path", po::value<std::string>(), "processed images destination folder")
+			("address", po::value<std::string>(), "IPv4 address of a server")
+			("port", po::value<short>(), "Port of a server machine");
 
 		po::variables_map vm;
 		try {
@@ -36,16 +37,17 @@ namespace {
 			std::cerr << e.what() << std::endl;
 			std::cout << std::endl;
 			std::cout << desc << std::endl;
-			return {false, "", "", -1};
+			return {false, "", "", "", -1};
 		}
 
-		if (argc != 4 || vm.count("help")) {
+		if (argc != desc.options().size() || vm.count("help")) {
 			std::cout << desc << std::endl;
-			return {false, "", "", -1};
+			return {false, "", "", "", -1};
 		}
 
 		bool success = true;
 		fs::path imgs_path;
+		fs::path dest_imgs_path;
 		std::string ipv4_addr;
 		short port;
 
@@ -56,6 +58,19 @@ namespace {
 
 			if (!fs::is_directory(imgs_path)) {
 				std::cerr << "imgs-path should be a directory!\n";
+				success = false;
+			}
+		} else {
+			success = false;
+		}
+
+		auto dest_img_vv = vm["dest-imgs-path"];
+		if (!dest_img_vv.empty()) {
+			dest_imgs_path = dest_img_vv.as<std::string>();
+			dest_imgs_path.normalize();
+
+			if (!fs::is_directory(dest_imgs_path)) {
+				std::cerr << "dest_imgs_path should be a directory!\n";
 				success = false;
 			}
 		} else {
@@ -90,7 +105,7 @@ namespace {
 			<< ipv4_addr << std::endl
 			<< port << std::endl;
 #endif
-		return {success, imgs_path, ipv4_addr, port};
+		return {success, imgs_path, dest_imgs_path, ipv4_addr, port};
 	}
 
 }
@@ -99,10 +114,11 @@ int main(int argc, char* argv[])
 { 
 	bool success = true;
 	fs::path imgs_path;
+	fs::path dest_imgs_path;
 	std::string ipv4_addr;
 	short port;
 
-	std::tie(success, imgs_path, ipv4_addr, port) = ::parse_program_args(argc, argv);
+	std::tie(success, imgs_path, std::ignore, ipv4_addr, port) = ::parse_program_args(argc, argv);
 
 	if (!success) {
 		return 1;

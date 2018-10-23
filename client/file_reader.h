@@ -7,6 +7,7 @@
 
 class file_reader
 {
+	typedef char byte_t;
 public:
 	file_reader(const boost::filesystem::path& dir_path)
 		: m_imgs_path(dir_path)
@@ -23,13 +24,13 @@ public:
 				auto normalized_abs = fs::absolute(p.normalize());
 				std::cout << normalized_abs << std::endl;
 
-				std::vector<char> raw_jpeg = read_file_bytes(normalized_abs.c_str());
+				std::vector<byte_t> raw_jpeg = read_file_bytes(normalized_abs.c_str());
 			}
 		}
 	}
 
 private:
-	std::vector<char> read_file_bytes(const wchar_t* file_abs_path)
+	std::vector<byte_t> read_file_bytes(const wchar_t* file_abs_path)
 	{
 		using namespace std;
 		ifstream ifs(file_abs_path, ios::binary);
@@ -38,7 +39,7 @@ private:
 		std::streamoff length = ifs.tellg();
 		ifs.seekg(0, ifs.beg);
 
-		std::vector<char> result(length);
+		std::vector<byte_t> result(length);
 
 		ifs.seekg(0, ios::beg);
 		ifs.read(&result[0], length);

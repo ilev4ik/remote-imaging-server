@@ -22,7 +22,15 @@ public:
 	}
 
 	void operator()() {
+		using namespace std::chrono;
 		connect_to_server();
+
+		while (!_kbhit()) {
+			m_hive_ptr->poll();
+			std::this_thread::sleep_for(1s);
+		}
+
+		m_hive_ptr->stop();
 	}
 
 private:
@@ -30,14 +38,6 @@ private:
 	{
 		try {
 			m_connection_ptr->connect(m_host, m_port);
-
-			while (!_kbhit()) {
-				m_hive_ptr->poll();
-				using namespace std::chrono;
-				std::this_thread::sleep_for(1s);
-			}
-
-			m_hive_ptr->stop();
 		} catch (const std::invalid_argument& e) {
 			std::cerr << e.what() << std::endl;
 		}
