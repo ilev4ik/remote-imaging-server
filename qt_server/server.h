@@ -9,7 +9,7 @@
 #include <iomanip>
 #include <boost\date_time\posix_time\posix_time.hpp>
 
-boost::mutex global_stream_lock;
+static boost::mutex global_stream_lock;
 
 class tcp_connection : public connection
 {
@@ -42,7 +42,7 @@ private:
 		recv();
 	}
 
-	void on_send(const std::vector<uint8_t>& buffer) override
+	void on_send(const std::vector<char>& buffer) override
 	{
 		global_stream_lock.lock();
 		std::cout << "[" << __FUNCTION__ << "] " << buffer.size() << " bytes" << std::endl;
@@ -58,7 +58,7 @@ private:
 		global_stream_lock.unlock();
 	}
 
-	void on_recv(std::vector<uint8_t>& buffer) override
+	void on_recv(std::vector<char>& buffer) override
 	{
 		global_stream_lock.lock();
 		std::cout << "[" << __FUNCTION__ << "] " << buffer.size() << " bytes" << std::endl;

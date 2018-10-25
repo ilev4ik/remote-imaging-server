@@ -117,15 +117,11 @@
     </QtRcc>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="imaging.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="server_info_dialog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="server_info_dialog.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="imaging.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\network_lib\network_lib.vcxproj">
