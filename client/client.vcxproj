@@ -94,6 +94,7 @@
     <ClInclude Include="client.h" />
     <ClInclude Include="connection_holder.h" />
     <ClInclude Include="file_reader.h" />
+    <ClInclude Include="file_wrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\network_lib\network_lib.vcxproj">
