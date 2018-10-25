@@ -105,7 +105,7 @@ void connection::handle_connect(const system::error_code& error)
 	}
 }
 
-void connection::handle_send(const system::error_code& error, std::list<std::vector<uint8_t>>::iterator itr)
+void connection::handle_send(const system::error_code& error, std::list<std::vector<char>>::iterator itr)
 {
 	if (error || has_error() || m_hive->has_stopped()) {
 		start_error(error);
@@ -140,7 +140,7 @@ void connection::handle_timer(const system::error_code& error)
 	}
 }
 
-void connection::dispatch_send(std::vector<uint8_t> buffer)
+void connection::dispatch_send(std::vector<char> buffer)
 {
 	bool should_start_send = m_pending_sends.empty();
 	m_pending_sends.push_back(buffer);
@@ -170,8 +170,8 @@ void connection::connect(const std::string& host, uint16_t port)
 	asio::ip::tcp::resolver resolver(m_hive->get_service());
 	asio::ip::tcp::resolver::query query(host, lexical_cast<std::string>(port));
 	asio::ip::tcp::resolver::iterator iterator = resolver.resolve(query, ec);
-	if (!ec) {
-		throw std::invalid_argument("address not resolved");
+	if (ec) {
+		throw std::invalid_argument(ec.message().c_str());
 	}
 
 	m_socket.async_connect(*iterator,
@@ -190,7 +190,7 @@ void connection::recv(std::size_t total_bytes)
 	m_io_strand.post(boost::bind(&connection::dispatch_recv, shared_from_this(), total_bytes));
 }
 
-void connection::send(const std::vector<uint8_t>& buffer)
+void connection::send(const std::vector<char>& buffer)
 {
 	m_io_strand.post(boost::bind(&connection::dispatch_send, shared_from_this(), buffer));
 }

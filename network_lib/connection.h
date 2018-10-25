@@ -54,7 +54,7 @@ public:
 	void connect(const std::string& host, uint16_t port);
 
 	// Posts data to be sent to the connection.
-	void send(const std::vector<uint8_t>& buffer);
+	void send(const std::vector<char>& buffer);
 
 	// Posts a recv for the connection to process. If total_bytes is 0, then 
 	// as many bytes as possible up to receive_buffer_size() will be 
@@ -73,9 +73,9 @@ private:
 	boost::asio::io_service::strand m_io_strand;
 	boost::asio::deadline_timer m_timer;
 	boost::posix_time::ptime m_last_time;
-	std::vector<uint8_t> m_recv_buffer;
+	std::vector<char> m_recv_buffer;
 	std::list<std::size_t> m_pending_recvs;
-	std::list<std::vector<uint8_t>> m_pending_sends;
+	std::list<std::vector<char>> m_pending_sends;
 	std::size_t m_receive_buffer_size;
 	int32_t m_timer_interval;
 	volatile uint32_t m_error_state;
@@ -90,11 +90,11 @@ private:
 	void start_recv(std::size_t total_bytes);
 	void start_timer();
 	void start_error(const boost::system::error_code& error);
-	void dispatch_send(std::vector<uint8_t> buffer);
+	void dispatch_send(std::vector<char> buffer);
 	void dispatch_recv(std::size_t total_bytes);
 	void dispatch_timer(const boost::system::error_code& error);
 	void handle_connect(const boost::system::error_code& error);
-	void handle_send(const boost::system::error_code& error, std::list<std::vector<uint8_t>>::iterator itr);
+	void handle_send(const boost::system::error_code& error, std::list<std::vector<char>>::iterator itr);
 	void handle_recv(const boost::system::error_code& error, std::size_t actual_bytes);
 	void handle_timer(const boost::system::error_code& error);
 
@@ -108,10 +108,10 @@ private:
 	virtual void on_connect(const std::string& host, uint16_t port) = 0;
 
 	// Called when data has been sent by the connection.
-	virtual void on_send(const std::vector<uint8_t>& buffer) = 0;
+	virtual void on_send(const std::vector<char>& buffer) = 0;
 
 	// Called when data has been received by the connection. 
-	virtual void on_recv(std::vector<uint8_t>& buffer) = 0;
+	virtual void on_recv(std::vector<char>& buffer) = 0;
 
 	// Called on each timer event.
 	virtual void on_timer(const boost::posix_time::time_duration& delta) = 0;
