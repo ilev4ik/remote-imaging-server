@@ -31,10 +31,9 @@ int main(int argc, char* argv[])
 	file_reader_thread.join();
 	connection_thread.join();
 
-	std::cout << "press any key" << std::endl;
+	std::cout << "press any key to exit" << std::endl;
 
 	std::cin.get();
-
 	return 0;
 }
 

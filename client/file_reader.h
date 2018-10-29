@@ -5,6 +5,7 @@
 #include "file_wrapper.h"
 
 #include <boost\filesystem.hpp>
+#include <iomanip>
 
 static file_wrapper read_file_bytes(boost::filesystem::path file_abs_path)
 {
@@ -16,7 +17,7 @@ static file_wrapper read_file_bytes(boost::filesystem::path file_abs_path)
 	ifs.seekg(0, ifs.beg);
 
 	file_wrapper file(file_abs_path.filename().c_str(), length);
-
+	ifs >> std::noskipws;
 	ifs.seekg(0, ios::beg);
 	ifs.read(&file[0], length);
 

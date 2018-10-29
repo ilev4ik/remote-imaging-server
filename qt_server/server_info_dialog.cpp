@@ -8,6 +8,8 @@
 #include <QVBoxLayout>
 #include <qtextedit.h>
 
+#include <opencv2\opencv.hpp>
+
 using namespace boost;
 
 ServerInfoDialog::ServerInfoDialog(QWidget* parent /*= nullptr*/)
@@ -21,7 +23,14 @@ ServerInfoDialog::ServerInfoDialog(QWidget* parent /*= nullptr*/)
 	m_connection_ptr->data_received.connect(
 		[this](const std::vector<char>& data)
 	{
-		m_log_edit->append(tr("Data received of %1 bytes").arg(data.size()));
+		cv::Mat raw_data(data);
+		cv::Mat raw_decoded_image = imdecode(raw_data, cv::IMREAD_COLOR);
+		m_log_edit->append(tr("image [%3] with size w:%1, h:%2")
+			.arg(raw_decoded_image.cols)
+			.arg(raw_decoded_image.rows)
+			.arg(data.size())
+		);
+		imshow("test", raw_decoded_image);
 	});
 }
 

@@ -69,6 +69,7 @@
       <AdditionalLibraryDirectories>$(QTDIR)\lib;c:\opencv\Build\x64\vc14\lib\Debug\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;ade.lib;opencv_img_hash400d.lib;opencv_world400d.lib;c:\Users\Levon\source\repos\boost_asio_tut\x64\Debug\network_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
     <QtMoc>
       <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
@@ -100,6 +101,7 @@
       <AdditionalLibraryDirectories>$(QTDIR)\lib;c:\opencv\Build\x64\vc14\lib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <AdditionalDependencies>qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;ade.lib;opencv_img_hash400.lib;opencv_world400.lib;c:\Users\Levon\source\repos\boost_asio_tut\x64\Release\network_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
     <QtMoc>
       <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
