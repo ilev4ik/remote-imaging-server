@@ -41,11 +41,13 @@ private:
 		// Start the next receive
 		recv();
 
-		std::string str = "GET / HTTP/1.0\r\n\r\n";
+		// make handshake on connect
 
-		std::vector<char> request;
-		std::copy(str.begin(), str.end(), std::back_inserter(request));
-		send(request);
+		//std::string str = "GET / HTTP/1.0\r\n\r\n";
+		//
+		//std::vector<char> request;
+		//std::copy(str.begin(), str.end(), std::back_inserter(request));
+		//send(request);
 	}
 
 	void on_send(const std::vector<char>& buffer) override

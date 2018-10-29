@@ -18,18 +18,24 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="app.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="client.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="connection_holder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="file_reader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="file_wrapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="app.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="singleton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

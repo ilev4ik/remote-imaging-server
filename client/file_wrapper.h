@@ -10,7 +10,7 @@ class file_wrapper
 	typedef char byte_t;
 	typedef std::vector<byte_t> raw_file_t;
 public:
-	file_wrapper(std::wstring name, ::size_t length)
+	file_wrapper(std::wstring name, std::size_t length)
 		: m_name(name)
 	{
 		m_file.resize(length);

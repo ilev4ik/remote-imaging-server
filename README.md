@@ -1,6 +1,6 @@
 # remote-imaging-server
-client usage: --imgs-path=..\..\resources\photos\ --dest-imgs-path=..\..\res\ --address=127.0.0.1 --port=7777
-server usage: just run it
+client usage: client.exe --imgs-path=..\..\resources\photos\ --dest-imgs-path=..\..\res\ --address=127.0.0.1 --port=7777
+server usage: qt_server.exe
 
 ## Текущее состояние
 *Клиент*

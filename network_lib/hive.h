@@ -36,7 +36,7 @@ public:
 
 	// Runs the networking system on the current thread. This function blocks 
 	// until the networking system is stopped, so do not call on a single 
-	// threaded application with no other means of being able to call stop 
+	// threaded app with no other means of being able to call stop 
 	// unless you code in such logic.
 	void run();
 

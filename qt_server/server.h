@@ -5,6 +5,7 @@
 #include "network.h"
 
 #include <boost\thread\mutex.hpp>
+#include <boost\signals2.hpp>
 #include <iostream>
 #include <iomanip>
 #include <boost\date_time\posix_time\posix_time.hpp>
@@ -20,6 +21,10 @@ public:
 	}
 
 	virtual ~tcp_connection() = default;
+
+
+public:
+	boost::signals2::signal<void(std::vector<char>)> data_received;
 
 private:
 	void on_accept(const std::string& host, uint16_t port) override
@@ -72,11 +77,13 @@ private:
 		std::cout << std::endl;
 		global_stream_lock.unlock();
 
+		data_received(buffer);
+
 		// Start the next receive
 		recv();
 
 		// Echo the data back
-		send(buffer);
+		//send(buffer);
 	}
 
 	void on_timer(const boost::posix_time::time_duration& delta) override

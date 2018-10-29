@@ -2,27 +2,26 @@
 #ifndef FILE_READER_H
 #define FILE_READER_H
 
-#include <vector>
+#include "file_wrapper.h"
+
 #include <boost\filesystem.hpp>
 
-class file_reader
+static file_wrapper read_file_bytes(boost::filesystem::path file_abs_path)
 {
-public:
-	file_reader(const boost::filesystem::path& dir_path)
-		: m_imgs_path(dir_path)
-	{
+	using namespace std;
+	ifstream ifs(file_abs_path.c_str(), ios::binary);
 
-	}
+	ifs.seekg(0, ifs.end);
+	std::streamoff length = ifs.tellg();
+	ifs.seekg(0, ifs.beg);
 
-	void operator()() {
-	}
+	file_wrapper file(file_abs_path.filename().c_str(), length);
 
-private:
+	ifs.seekg(0, ios::beg);
+	ifs.read(&file[0], length);
 
-
-private:
-	boost::filesystem::path m_imgs_path;
-};
+	return file;
+}
 
 #endif // FILE_READER_H
 

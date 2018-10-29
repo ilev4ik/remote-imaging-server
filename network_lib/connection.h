@@ -27,7 +27,7 @@ public:
 	// Returns the strand object.
 	boost::asio::io_service::strand& get_strand();
 
-	// Sets the application specific receive buffer size used. For stream 
+	// Sets the app specific receive buffer size used. For stream 
 	// based protocols such as HTTP, you want this to be pretty large, like 
 	// 64kb. For packet based protocols, then it will be much smaller, 
 	// usually 512b - 8kb depending on the protocol. The default value is

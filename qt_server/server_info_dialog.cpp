@@ -17,6 +17,12 @@ ServerInfoDialog::ServerInfoDialog(QWidget* parent /*= nullptr*/)
 	, m_connection_ptr(make_shared<tcp_connection>(m_hive_ptr))
 {
 	init();
+
+	m_connection_ptr->data_received.connect(
+		[this](const std::vector<char>& data)
+	{
+		m_log_edit->append(tr("Data received of %1 bytes").arg(data.size()));
+	});
 }
 
 void ServerInfoDialog::init()
