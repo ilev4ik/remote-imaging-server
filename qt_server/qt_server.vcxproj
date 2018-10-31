@@ -120,6 +120,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="server.cpp" />
     <ClCompile Include="server_info_dialog.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +130,11 @@
     <ProjectReference Include="..\network_lib\network_lib.vcxproj">
       <Project>{ca17203c-7e5b-4dc6-bfe5-f66f4519ec4d}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="acceptor_impl.h" />
+    <ClInclude Include="connection_impl.h" />
+    <ClInclude Include="server.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

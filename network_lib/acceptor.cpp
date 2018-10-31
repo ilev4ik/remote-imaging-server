@@ -43,10 +43,11 @@ void acceptor::start_error(const system::error_code& error)
 
 void acceptor::dispatch_accept(shared_ptr<connection> connection)
 {
+	using namespace asio::placeholders;
 	m_acceptor.async_accept(
 		connection->get_socket(), 
 		connection->get_strand().wrap(
-			bind(&acceptor::handle_accept, shared_from_this(), _1, connection)
+			bind(&acceptor::handle_accept, shared_from_this(), error, connection)
 		)
 	);
 }
@@ -83,7 +84,8 @@ void acceptor::handle_accept(const system::error_code& error, shared_ptr<connect
 
 void acceptor::stop()
 {
-	m_io_strand.post(bind(&acceptor::handle_timer, shared_from_this(), asio::error::connection_reset));
+	using namespace asio::error;
+	m_io_strand.post(bind(&acceptor::handle_timer, shared_from_this(), connection_reset));
 }
 
 void acceptor::accept(shared_ptr<connection> connection)
@@ -96,11 +98,14 @@ void acceptor::listen(const std::string& host, const uint16_t& port)
 	asio::ip::tcp::resolver resolver(m_hive->get_service());
 	asio::ip::tcp::resolver::query query(host, lexical_cast<std::string>(port));
 	asio::ip::tcp::endpoint endpoint = *resolver.resolve(query);
-	m_acceptor.open(endpoint.protocol());
-	m_acceptor.set_option(asio::ip::tcp::acceptor::reuse_address(false));
-	m_acceptor.bind(endpoint);
-	m_acceptor.listen(asio::socket_base::max_connections);
-	start_timer();
+	try {
+		m_acceptor.open(endpoint.protocol());
+		m_acceptor.set_option(asio::ip::tcp::acceptor::reuse_address(false));
+		m_acceptor.bind(endpoint);
+		m_acceptor.listen(asio::socket_base::max_connections);
+		start_timer();
+	}
+	catch (...) {}
 }
 
 shared_ptr<hive> acceptor::get_hive()

@@ -22,7 +22,7 @@ private:
 
 public:
 	hive();
-	virtual ~hive();
+	virtual ~hive() = default;
 
 	// Returns the io_service of this object.
 	boost::asio::io_service& get_service();

@@ -10,10 +10,6 @@ hive::hive()
 {
 }
 
-hive::~hive()
-{
-}
-
 asio::io_service& hive::get_service()
 {
 	return m_io_service;

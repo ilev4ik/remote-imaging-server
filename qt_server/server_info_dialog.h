@@ -3,13 +3,13 @@
 #define SERVER_INFO_DIALOG_H
 
 #include "server.h"
-
-#include <QtWidgets/QDialog>
-
 #include <boost\smart_ptr.hpp>
+
+#include <QtWidgets\QDialog>
 
 class QTimerEvent;
 class QTextEdit;
+class QLineEdit;
 
 class ServerInfoDialog : public QDialog
 {
@@ -26,14 +26,14 @@ private:
 	void stopServer();
 	void startServer();
 
-private: // network
-	boost::shared_ptr<hive> m_hive_ptr;
-	boost::shared_ptr<tcp_acceptor> m_acceptor_ptr;
-	boost::shared_ptr<tcp_connection> m_connection_ptr;
+private: 
+	std::unique_ptr<server> m_server;
 
 private:
 	int m_timer_id{ -1 };
 	QTextEdit* m_log_edit{};
+	QLineEdit* m_addr{};
+	QLineEdit* m_port{};
 };
 
 #endif //SERVER_INFO_DIALOG_H
