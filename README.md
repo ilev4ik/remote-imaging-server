@@ -3,6 +3,8 @@ client usage: client.exe --imgs-path=..\..\resources\photos\ --dest-imgs-path=..
 server usage: qt_server.exe
 
 ## Текущее состояние
+*Вспомогательная статическая либа для работы с сетью на основе boost asio*
+
 *Клиент*
 - считывание и обработка аргументов коммандной строки boost::program_options
 - 2 потока producer/consumer чтения картинок из директории и отправки RAW-представления на сервер
